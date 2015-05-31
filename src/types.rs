@@ -2,7 +2,7 @@
 
 use std::collections::HashMap;
 
-pub type SettingsList = HashMap<String, Setting>;
+pub type SettingsList = HashMap<String, Vec<Setting>>;
 
 /// The top-level `Torrc` type
 #[derive(PartialEq)]
@@ -25,6 +25,10 @@ impl Torrc {
     /// Create a new `Torrc` to hold the `SettingsList`
     pub fn new(s: SettingsList) -> Torrc {
         Torrc { settings: s }
+    }
+
+    pub fn lookup(&self, path: &str) -> Option<&Vec<Setting>> {
+        return self.settings.get(path)
     }
 
     pub fn settings(&self) -> &SettingsList {
